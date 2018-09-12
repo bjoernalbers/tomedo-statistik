@@ -1,0 +1,15 @@
+[Unit]
+Description=Rails Application Server
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/data/tomedo-statistik/current
+Environment=RAILS_ENV=production PORT=80
+ExecStart=/data/tomedo-statistik/current/bin/rails server
+TimeoutSec=15
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
