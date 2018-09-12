@@ -39,3 +39,39 @@ append :linked_dirs, 'log', 'tmp/pids', 'tmp/cache'
 
 # Uncomment the following to require manually verifying the host key before first deploy.
 # set :ssh_options, verify_host_key: :secure
+
+after "deploy", "rails:restart"
+
+namespace :rails do
+  def systemd_config_source
+    "#{release_path}/config/rails.service"
+  end
+
+  def systemd_config_destination
+    '/etc/systemd/system/rails.service'
+  end
+
+  desc 'Restart the rails service'
+  task restart: :setup_systemd do
+    on roles(:app) do
+      execute 'systemctl restart rails.service'
+    end
+  end
+
+  desc 'Setup systemd for rails'
+  task setup_systemd: :check_systemd_config do
+    on roles(:app) do
+      execute "ln -sf '#{systemd_config_source}' '#{systemd_config_destination}'"
+      # Always reload systemd in case the rails service config has changed.
+      execute 'systemctl daemon-reload'
+      execute 'systemctl enable rails.service'
+    end
+  end
+
+  desc 'Check if the systemd config is present'
+  task :check_systemd_config do
+    on roles(:app) do
+      execute "test -f '#{systemd_config_source}'"
+    end
+  end
+end
