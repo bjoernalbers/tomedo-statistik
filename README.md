@@ -23,6 +23,46 @@ Things you may want to cover:
 
 * ...
 
+## Development
+
+### Setup
+
+Install Ruby 2.5 and PostgreSQL 9.
+
+You might chose a ruby version manager, like
+[rvm](https://rvm.io),
+[rbenv](https://github.com/rbenv/rbenv) or
+[chruby](https://github.com/postmodern/chruby) to select your desired ruby version.
+I'm using chruby.
+
+Then clone this repository and `cd` into it:
+
+    git clone git@github.com:bjoernalbers/tomedo-statistik.git
+    cd tomedo-statistik
+
+Run `bundle install` to install all required gems.
+If you don't have bundler then you can install it with `gem install bundler`.
+
+On the tomedo server dump the production database into a file:
+
+    /Library/PostgreSQL/9.2/bin/pg_dump -U postgres -Fc -f /tmp/tomedo_live.fc tomedo_live
+
+This might take 5 to 10 minutes depending on your database size.
+Then on your development machine copy the created file from the server (your
+hostname / ip address will be different!):
+
+    scp fredegar:/tmp/tomedo_live.fc .
+
+Import the database on your development machine:
+
+    createdb tomedo_entwicklung
+    pg_restore -x -O -d tomedo_entwicklung db/tomedo_live.fc
+
+Again this may take 5 to 10 minutes.
+
+Then start the server with `bin/rails s`.
+Done.
+
 ## Production
 
 ### Operating System and hardware
