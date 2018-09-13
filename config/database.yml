@@ -17,6 +17,7 @@ test:
 
 production:
   <<: *default
+  host: fredegar
   database: tomedo_live
   username: <%= Rails.application.credentials.tomedo_database[:username] %>
   password: <%= Rails.application.credentials.tomedo_database[:password] %>
