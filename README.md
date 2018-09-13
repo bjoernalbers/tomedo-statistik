@@ -55,10 +55,16 @@ Install development packages so that you can compile native gem-extensions:
 
     zypper in -y -t pattern devel_C_C++
 
-Install development dependencies in order to build gems:
+Install PostgreSQL with development headers (required for the pg gem):
+
+    zypper in -y postgresql96 postgresql96-devel
+    # NOTE: Manually symlink `pg_config` because it doesn't exist after
+    # installing `postgresql96-devel`, possibly due to a bug.
+    ln -s /usr/lib/postgresql96/bin/pg_config /usr/local/bin/
+
+Install further development dependencies in order to build gems:
 
     zypper in -y ruby2.5-devel
-    zypper in -y sqlite3-devel
     zypper in -y libxml2-2 libxml2-devel # Required for nokogiri
     zypper in -y libxslt-devel libxslt1  # Required for nokogiri
 
