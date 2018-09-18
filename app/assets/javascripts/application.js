@@ -10,6 +10,9 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+//= require jquery
+//= require raphael
+//= require morris
 //= require rails-ujs
 //= require activestorage
 //= require turbolinks
