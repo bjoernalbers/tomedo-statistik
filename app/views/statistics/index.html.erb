@@ -1,8 +1,16 @@
 <h1>Tomedo-Statistik</h1>
 
+<%= form_tag statistics_path, method: :get do %>
+  <%= label_tag :start, 'Start:' %>
+  <%= date_field_tag :start, @start %>
+  <%= label_tag :stop, 'Ende:' %>
+  <%= date_field_tag :stop, @stop %>
+  <%= submit_tag 'Aktualisieren', name: nil %>
+<% end %>
+
 <h2>Anzahl der Termine je Terminart</h2>
 
-<%= content_tag :div, "", id: "appointments", data: {appointments: @appointments} %>
+<%= content_tag :div, '', id: 'appointments', data: {appointments: @appointments} %>
 
 <script>
 new Morris.Bar({
