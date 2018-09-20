@@ -53,3 +53,16 @@
     labels: ['Stunden']
   });
 </script>
+
+<h2>Anteil privatversicherter Patienten</h2>
+
+<%= content_tag :div, '', id: 'patientdetails', data: {patientdetails: @patientdetails} %>
+
+<script>
+  //new Morris.Bar({
+  new Morris.Donut({
+    // ID of the element in which to draw the chart.
+    element: 'patientdetails',
+    data: $('#patientdetails').data('patientdetails'),
+  });
+</script>

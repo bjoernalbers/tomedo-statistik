@@ -4,5 +4,6 @@ class StatisticsController < ApplicationController
     @stop = params[:stop].present? ? params[:stop].to_date : Time.zone.now.to_date
     @appointments = Appointment.chart_data(@start, @stop)
     @visits = Visit.chart_data(@start, @stop)
+    @patientdetails = Patientdetails.chart_data(@start, @stop)
   end
 end

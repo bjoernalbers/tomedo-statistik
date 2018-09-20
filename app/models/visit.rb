@@ -1,6 +1,7 @@
 class Visit < ApplicationRecord
   self.table_name = 'besuch'
 
+  belongs_to :patient, foreign_key: 'patient_ident'
   has_one :visit_doctor, foreign_key: 'besuch_ident'
   has_one :doctor, through: :visit_doctor
   has_one :user, through: :doctor
