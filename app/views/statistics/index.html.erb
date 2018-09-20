@@ -13,20 +13,43 @@
 <%= content_tag :div, '', id: 'appointments', data: {appointments: @appointments} %>
 
 <script>
-new Morris.Bar({
-  // ID of the element in which to draw the chart.
-  element: 'appointments',
-  data: $('#appointments').data('appointments'),
+  new Morris.Bar({
+    // ID of the element in which to draw the chart.
+    element: 'appointments',
+    data: $('#appointments').data('appointments'),
 
-  // The name of the data record attribute that contains x-values.
-  xkey: 'bezeichnung',
+    // The name of the data record attribute that contains x-values.
+    xkey: 'bezeichnung',
 
-  // A list of names of data record attributes that contain y-values.
-  ykeys: ['anzahl_termine'],
-  xLabelAngle: 45,
+    // A list of names of data record attributes that contain y-values.
+    ykeys: ['anzahl_termine'],
+    xLabelAngle: 45,
 
-  // Labels for the ykeys -- will be displayed when you hover over the
-  // chart.
-  labels: ['Anzahl Termine']
-});
+    // Labels for the ykeys -- will be displayed when you hover over the
+    // chart.
+    labels: ['Anzahl Termine']
+  });
+</script>
+
+<h2>Durchschnittliche Befundlaufzeit je Arzt</h2>
+
+<%= content_tag :div, '', id: 'visits', data: {visits: @visits} %>
+
+<script>
+  new Morris.Bar({
+    // ID of the element in which to draw the chart.
+    element: 'visits',
+    data: $('#visits').data('visits'),
+
+    // The name of the data record attribute that contains x-values.
+    xkey: 'kuerzel',
+
+    // A list of names of data record attributes that contain y-values.
+    ykeys: ['durchschnittliche_besuchsdauer'],
+    xLabelAngle: 45,
+
+    // Labels for the ykeys -- will be displayed when you hover over the
+    // chart.
+    labels: ['Stunden']
+  });
 </script>
