@@ -5,6 +5,8 @@ class Visit < ApplicationRecord
   has_one :visit_doctor, foreign_key: 'besuch_ident'
   has_one :doctor, through: :visit_doctor
   has_one :user, through: :doctor
+  has_many :visit_todochain, foreign_key: 'todokette_ident'
+  has_many :todos, through: :visit_todochain
 
   def self.chart_data(start, stop)
     # Raw SQL:

@@ -4,6 +4,7 @@ class StatisticsController < ApplicationController
     @stop = params[:stop].present? ? params[:stop].to_date : Time.zone.now.to_date
     @appointments = Appointment.chart_data(@start, @stop)
     @appointment_average_waiting_periods = Appointment.average_waiting_periods(@start, @stop)
+    @todo_average_waiting_times = Todo.average_waiting_times(@start, @stop)
     @visits = Visit.chart_data(@start, @stop)
     @patientdetails = Patientdetails.chart_data(@start, @stop)
   end
