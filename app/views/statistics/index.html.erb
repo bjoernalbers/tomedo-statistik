@@ -1,16 +1,18 @@
 <h1><%= link_to 'Tomedo-Statistik', root_path %></h1>
 
-<%= form_tag statistics_path, method: :get do %>
-  <div class='form-group'>
-    <%= label_tag :start, 'Start:' %>
-    <%= text_field_tag :start, l(@start), data: {'provide' => 'datepicker', 'date-format' => 'dd.mm.yyyy'}, class: 'form-control' %>
-  </div>
-  <div class='form-group'>
-    <%= label_tag :stop, 'Ende:' %>
-    <%= text_field_tag :stop, l(@stop), data: {'provide' => 'datepicker', 'date-format' => 'dd.mm.yyyy'}, class: 'form-control' %>
-  </div>
-  <%= submit_tag 'Aktualisieren', name: nil, class: 'btn btn-primary' %>
-<% end %>
+<p>
+  <%= form_tag statistics_path, method: :get do %>
+    <div class='form-group'>
+      <%= label_tag :start, 'Start:' %>
+      <%= text_field_tag :start, l(@start), data: {'provide' => 'datepicker', 'date-format' => 'dd.mm.yyyy'}, class: 'form-control' %>
+    </div>
+    <div class='form-group'>
+      <%= label_tag :stop, 'Ende:' %>
+      <%= text_field_tag :stop, l(@stop), data: {'provide' => 'datepicker', 'date-format' => 'dd.mm.yyyy'}, class: 'form-control' %>
+    </div>
+    <%= submit_tag 'Aktualisieren', name: nil, class: 'btn btn-primary' %>
+  <% end %>
+</p>
 
 <h2>Anzahl der Termine je Untersuchung</h2>
 
