@@ -54,6 +54,19 @@
   });
 </script>
 
+<h2>Anteil wahrgenommener Termine</h2>
+
+<%= content_tag :div, '', id: 'appointment_appeared_patients', data: {appointment_appeared_patients: @appointment_appeared_patients} %>
+
+<script>
+  //new Morris.Bar({
+  new Morris.Donut({
+    // ID of the element in which to draw the chart.
+    element: 'appointment_appeared_patients',
+    data: $('#appointment_appeared_patients').data('appointment-appeared-patients'),
+  });
+</script>
+
 <h2>Durchschnittliche Besuchswartezeit je Untersuchung</h2>
 
 <%= content_tag :div, '', id: 'todo_average_waiting_times', data: {todo_average_waiting_times: @todo_average_waiting_times} %>

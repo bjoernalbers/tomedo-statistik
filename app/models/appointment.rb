@@ -50,4 +50,21 @@ class Appointment < ApplicationRecord
       order('durchschnittliche_wartezeit desc').
       limit(10)
   end
+
+  def self.appeared_patients(start, stop)
+    # Raw SQL:
+    # SELECT
+    #   warda as label,
+    #   count(*) as value
+    # FROM
+    #   "termin"
+    # WHERE
+    #   "termin"."beginn" BETWEEN '2018-09-01 00:00:00' AND '2018-09-25 23:59:59.999999'
+    # GROUP BY
+    #   "termin"."warda"
+    # ;
+    select('warda as label, count(*) as value').
+    where(beginn: start.to_date.beginning_of_day..stop.to_date.end_of_day).
+    group(:warda)
+  end
 end
