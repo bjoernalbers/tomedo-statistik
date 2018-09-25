@@ -1,27 +1,15 @@
-# README
+# tomedo-Statistik
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+tomedo-Statistik is a web-application that generates statistics from
+[tomedo](https://www.tomedo.de):
 
-Things you may want to cover:
+![Browser with tomedo-Statistik](public/browser.png?raw=true 'Browser with tomedo-Statistik')
 
-* Ruby version
+It is meant to be as a replacement for tomedo's build-in cockpit which
+lacks some features for [us](http://radiologie-lippstadt.de).
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+**Attention: This app has to be installed by professionals on a linux server in
+your local network!**
 
 ## Development
 
