@@ -7,6 +7,6 @@ class StatisticsController < ApplicationController
     @appointment_appeared_patients = Appointment.appeared_patients(@start, @stop)
     @todo_average_waiting_times = Todo.average_waiting_times(@start, @stop)
     @visit_average_duration = Visit.average_duration(@start, @stop)
-    @patientdetails_insurance_type_share = Patientdetails.insurance_type_share(@start, @stop)
+    @patientdetails_insurance_type_percent = Patientdetails.insurance_type_percent(@start, @stop)
   end
 end

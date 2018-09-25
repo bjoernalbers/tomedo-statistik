@@ -113,15 +113,16 @@
   });
 </script>
 
-<h2>Anteil privatversicherter Patienten</h2>
+<h2>Aufteilung je Versicherungsart</h2>
 
-<%= content_tag :div, '', id: 'patientdetails_insurance_type_share', data: {patientdetails_insurance_type_share: @patientdetails_insurance_type_share} %>
+<%= content_tag :div, '', id: 'patientdetails_insurance_type_percent', data: {patientdetails_insurance_type_percent: @patientdetails_insurance_type_percent} %>
 
 <script>
   //new Morris.Bar({
   new Morris.Donut({
     // ID of the element in which to draw the chart.
-    element: 'patientdetails_insurance_type_share',
-    data: $('#patientdetails_insurance_type_share').data('patientdetails-insurance-type-share'),
+    element: 'patientdetails_insurance_type_percent',
+    data: $('#patientdetails_insurance_type_percent').data('patientdetails-insurance-type-percent'),
+    formatter: function (y, data) { return y + '%' }
   });
 </script>
