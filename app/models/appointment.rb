@@ -51,11 +51,11 @@ class Appointment < ApplicationRecord
       limit(10)
   end
 
-  def self.appeared_patients(start, stop)
+  def self.appeared_patients_percent(start, stop)
     # Raw SQL:
     # SELECT
-    #   warda as label,
-    #   count(*) as value
+    #   warda,
+    #   count(*) as anzahl
     # FROM
     #   "termin"
     # WHERE
@@ -63,8 +63,16 @@ class Appointment < ApplicationRecord
     # GROUP BY
     #   "termin"."warda"
     # ;
-    select('warda as label, count(*) as value').
-    where(beginn: start.to_date.beginning_of_day..stop.to_date.end_of_day).
-    group(:warda)
+    total = where(beginn: start.to_date.beginning_of_day..stop.to_date.end_of_day).
+      count
+    select('warda, count(*) as anzahl').
+      where(beginn: start.to_date.beginning_of_day..stop.to_date.end_of_day).
+      group(:warda).inject([]) do |memo,appeared_or_not|
+        hash = {}
+        hash[:label] = appeared_or_not.warda ? "erschienen" : "nicht erschienen"
+        hash[:value] = ((appeared_or_not.anzahl.to_f / total.to_f) * 100.0).round
+        memo << hash
+        memo
+      end
   end
 end

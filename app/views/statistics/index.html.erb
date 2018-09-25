@@ -54,16 +54,17 @@
   });
 </script>
 
-<h2>Anteil wahrgenommener Termine</h2>
+<h2>Aufteilung wahrgenommener Termine</h2>
 
-<%= content_tag :div, '', id: 'appointment_appeared_patients', data: {appointment_appeared_patients: @appointment_appeared_patients} %>
+<%= content_tag :div, '', id: 'appointment_appeared_patients_percent', data: {appointment_appeared_patients_percent: @appointment_appeared_patients_percent} %>
 
 <script>
   //new Morris.Bar({
   new Morris.Donut({
     // ID of the element in which to draw the chart.
-    element: 'appointment_appeared_patients',
-    data: $('#appointment_appeared_patients').data('appointment-appeared-patients'),
+    element: 'appointment_appeared_patients_percent',
+    data: $('#appointment_appeared_patients_percent').data('appointment-appeared-patients-percent'),
+    formatter: function (y, data) { return y + '%' }
   });
 </script>
 
