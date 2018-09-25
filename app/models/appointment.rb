@@ -22,8 +22,7 @@ class Appointment < ApplicationRecord
       where('termin.beginn' => start.to_date.beginning_of_day..stop.to_date.end_of_day).
       group('terminart.bezeichnung').
       select('count(*) as anzahl_termine, terminart.bezeichnung as bezeichnung').
-      order('anzahl_termine desc').
-      limit(10)
+      order('anzahl_termine desc')
   end
 
   def self.average_waiting_periods(start, stop)
@@ -47,8 +46,7 @@ class Appointment < ApplicationRecord
       where('termin.angelegt' => start.to_date.beginning_of_day..stop.to_date.end_of_day).
       group('terminart.bezeichnung').
       select('ROUND(EXTRACT(EPOCH FROM AVG(termin.beginn - termin.angelegt))/(60*60*24)) as durchschnittliche_wartezeit, terminart.bezeichnung as bezeichnung').
-      order('durchschnittliche_wartezeit desc').
-      limit(10)
+      order('durchschnittliche_wartezeit desc')
   end
 
   def self.appeared_patients_percent(start, stop)
