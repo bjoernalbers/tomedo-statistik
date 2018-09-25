@@ -5,17 +5,17 @@ class Appointment < ApplicationRecord
 
   def self.count_by_study(start, stop)
     # RAW SQL:
-    #select
-    #  count(*) as anzahl_termine,
-    #  terminart.bezeichnung as bezeichnung
-    #from
-    #  termin
-    #  join terminart on terminart.ident = termin.terminart_ident
-    #group by
-    #  terminart.bezeichnung
-    #order by
-    #   anzahl_termine desc
-    # limit
+    # SELECT
+    #   COUNT(*) as anzahl_termine,
+    #   terminart.bezeichnung as bezeichnung
+    # FROM
+    #   termin
+    #   INNER JOIN terminart on terminart.ident = termin.terminart_ident
+    # GROUP BY
+    #   terminart.bezeichnung
+    # ORDER BY
+    #   anzahl_termine DESC
+    # LIMIT
     #   10
     # ;
     joins(:calendar).
