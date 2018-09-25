@@ -53,6 +53,11 @@ Done.
 
 ## Production
 
+**IMPORTANT: The following steps describe how I had set up our production
+server and installed this app. If you plan to install it on your own server you
+will have to fork this repo and change the deployment settings, provide a new
+master key, update the credentials, etc.!**
+
 ### Operating System and hardware
 
 The production server should run an up-to-date version of openSUSE Tumbleweed.
