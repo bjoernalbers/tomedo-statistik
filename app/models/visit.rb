@@ -8,7 +8,7 @@ class Visit < ApplicationRecord
   has_many :visit_todochain, foreign_key: 'todokette_ident'
   has_many :todos, through: :visit_todochain
 
-  def self.chart_data(start, stop)
+  def self.average_duration(start, stop)
     # Raw SQL:
     # SELECT
     #   nutzer.kuerzel as kuerzel,

@@ -4,7 +4,7 @@ class Patientdetails < ApplicationRecord
   has_one :patient, foreign_key: 'patientendetails_ident'
   has_many :visits, through: :patient
 
-  def self.chart_data(start, stop)
+  def self.insurance_type_share(start, stop)
     # Raw SQL
     # SELECT
     #   count(*) as value,

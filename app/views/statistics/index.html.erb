@@ -10,13 +10,13 @@
 
 <h2>Anzahl der Termine je Untersuchung</h2>
 
-<%= content_tag :div, '', id: 'appointments', data: {appointments: @appointments} %>
+<%= content_tag :div, '', id: 'appointment_count_by_study', data: {appointment_count_by_study: @appointment_count_by_study} %>
 
 <script>
   new Morris.Bar({
     // ID of the element in which to draw the chart.
-    element: 'appointments',
-    data: $('#appointments').data('appointments'),
+    element: 'appointment_count_by_study',
+    data: $('#appointment_count_by_study').data('appointment-count-by-study'),
 
     // The name of the data record attribute that contains x-values.
     xkey: 'bezeichnung',
@@ -92,13 +92,13 @@
 
 <h2>Durchschnittliche Befundlaufzeit je Arzt</h2>
 
-<%= content_tag :div, '', id: 'visits', data: {visits: @visits} %>
+<%= content_tag :div, '', id: 'visit_average_duration', data: {visit_average_duration: @visit_average_duration} %>
 
 <script>
   new Morris.Bar({
     // ID of the element in which to draw the chart.
-    element: 'visits',
-    data: $('#visits').data('visits'),
+    element: 'visit_average_duration',
+    data: $('#visit_average_duration').data('visit-average-duration'),
 
     // The name of the data record attribute that contains x-values.
     xkey: 'kuerzel',
@@ -115,13 +115,13 @@
 
 <h2>Anteil privatversicherter Patienten</h2>
 
-<%= content_tag :div, '', id: 'patientdetails', data: {patientdetails: @patientdetails} %>
+<%= content_tag :div, '', id: 'patientdetails_insurance_type_share', data: {patientdetails_insurance_type_share: @patientdetails_insurance_type_share} %>
 
 <script>
   //new Morris.Bar({
   new Morris.Donut({
     // ID of the element in which to draw the chart.
-    element: 'patientdetails',
-    data: $('#patientdetails').data('patientdetails'),
+    element: 'patientdetails_insurance_type_share',
+    data: $('#patientdetails_insurance_type_share').data('patientdetails-insurance-type-share'),
   });
 </script>

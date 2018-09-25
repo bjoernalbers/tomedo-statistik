@@ -3,7 +3,7 @@ class Appointment < ApplicationRecord
 
   belongs_to :calendar, foreign_key: 'terminart_ident'
 
-  def self.chart_data(start, stop)
+  def self.count_by_study(start, stop)
     # RAW SQL:
     #select
     #  count(*) as anzahl_termine,
