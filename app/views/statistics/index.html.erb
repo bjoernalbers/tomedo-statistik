@@ -8,7 +8,7 @@
   <%= submit_tag 'Aktualisieren', name: nil %>
 <% end %>
 
-<h2>Anzahl der Termine je Terminart</h2>
+<h2>Anzahl der Termine je Untersuchung</h2>
 
 <%= content_tag :div, '', id: 'appointments', data: {appointments: @appointments} %>
 
@@ -31,7 +31,7 @@
   });
 </script>
 
-<h2>Durchschnittliche Terminwartezeit je Terminart</h2>
+<h2>Durchschnittliche Terminwartezeit je Untersuchung</h2>
 
 <%= content_tag :div, '', id: 'appointment_average_waiting_periods', data: {appointment_average_waiting_periods: @appointment_average_waiting_periods} %>
 
