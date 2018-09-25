@@ -12,7 +12,7 @@ class Visit < ApplicationRecord
     # Raw SQL:
     # SELECT
     #   nutzer.kuerzel as kuerzel,
-    #   EXTRACT(epoch FROM avg(ende - ankunft))/3600 as durchschnittliche_besuchsdauer
+    #   ROUND(EXTRACT(epoch FROM avg(ende - ankunft))/3600) as durchschnittliche_besuchsdauer
     # FROM
     #   "besuch"
     # INNER JOIN
@@ -31,7 +31,7 @@ class Visit < ApplicationRecord
     joins(:user).
       where('besuch.ende' => start.to_date.beginning_of_day..stop.to_date.end_of_day).
       group('nutzer.kuerzel').
-      select('nutzer.kuerzel as kuerzel, EXTRACT(epoch FROM avg(ende - ankunft))/3600 as durchschnittliche_besuchsdauer').
+      select('nutzer.kuerzel as kuerzel, ROUND(EXTRACT(epoch FROM avg(ende - ankunft))/3600) as durchschnittliche_besuchsdauer').
       order('durchschnittliche_besuchsdauer desc')
   end
 end
