@@ -2,9 +2,9 @@
 
 <%= form_tag statistics_path, method: :get do %>
   <%= label_tag :start, 'Start:' %>
-  <%= text_field_tag :start, l(@start) %>
+  <%= text_field_tag :start, l(@start), data: {'provide' => 'datepicker', 'date-format' => 'dd.mm.yyyy'} %>
   <%= label_tag :stop, 'Ende:' %>
-  <%= text_field_tag :stop, l(@stop) %>
+  <%= text_field_tag :stop, l(@stop), data: {'provide' => 'datepicker', 'date-format' => 'dd.mm.yyyy'} %>
   <%= submit_tag 'Aktualisieren', name: nil %>
 <% end %>
 
