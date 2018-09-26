@@ -34,4 +34,24 @@ class Visit < ApplicationRecord
       select('nutzer.kuerzel as kuerzel, ROUND(EXTRACT(epoch FROM avg(ende - ankunft))/3600) as durchschnittliche_besuchsdauer').
       order('durchschnittliche_besuchsdauer desc')
   end
+
+  def self.median_duration(start, stop)
+    result = []
+    visits = joins(:user).
+      select('nutzer.kuerzel as kuerzel, ROUND(EXTRACT(EPOCH FROM (ende - ankunft))/3600) as besuchsdauer').
+      where('besuch.ende' => start.to_date.beginning_of_day..stop.to_date.end_of_day)
+    visits.distinct.pluck(:kuerzel).each do |doctor|
+      visits_by_doctor = visits.where('nutzer.kuerzel' => doctor)
+      durations = visits_by_doctor.order('besuchsdauer').map(&:besuchsdauer)
+      number_of_durations = durations.count
+      median_index = number_of_durations / 2
+      median = if number_of_durations.even?
+        (durations[median_index-1] + durations[median_index]) / 2.0
+      else
+        durations[median_index]
+      end
+      result << { kuerzel: doctor, median_besuchsdauer:  median }
+    end
+    result.sort_by{ |r| r[:median_besuchsdauer] }.reverse
+  end
 end
