@@ -8,6 +8,8 @@ class Visit < ApplicationRecord
   has_many :visit_todochain, foreign_key: 'todokette_ident'
   has_many :todos, through: :visit_todochain
 
+  include Medianable
+
   def self.average_duration(start, stop)
     # Raw SQL:
     # SELECT
@@ -37,20 +39,16 @@ class Visit < ApplicationRecord
 
   def self.median_duration(start, stop)
     result = []
-    visits = joins(:user).
+    subquery = joins(:user).
       select('nutzer.kuerzel as kuerzel, ROUND(EXTRACT(EPOCH FROM (ende - ankunft))/3600) as besuchsdauer').
-      where('besuch.ende' => start.to_date.beginning_of_day..stop.to_date.end_of_day)
-    visits.distinct.pluck(:kuerzel).each do |doctor|
-      visits_by_doctor = visits.where('nutzer.kuerzel' => doctor)
-      durations = visits_by_doctor.order('besuchsdauer').map(&:besuchsdauer)
-      number_of_durations = durations.count
-      median_index = number_of_durations / 2
-      median = if number_of_durations.even?
-        (durations[median_index-1] + durations[median_index]) / 2.0
-      else
-        durations[median_index]
-      end
-      result << { kuerzel: doctor, median_besuchsdauer:  median }
+      where(ende: start.to_date.beginning_of_day..stop.to_date.end_of_day).
+      as('besuch')
+    from(subquery).distinct.pluck(:kuerzel).each do |doctor|
+      records = from(subquery).where(kuerzel: doctor)
+      result << {
+        kuerzel: doctor,
+        median_besuchsdauer: records.median(:besuchsdauer)
+      }
     end
     result.sort_by{ |r| r[:median_besuchsdauer] }.reverse
   end
