@@ -120,6 +120,29 @@
   });
 </script>
 
+<h2>Median der Besuchswartezeit je Untersuchung</h2>
+
+<%= content_tag :div, '', id: 'todo_median_waiting_times', data: {todo_median_waiting_times: @todo_median_waiting_times} %>
+
+<script>
+  new Morris.Bar({
+    // ID of the element in which to draw the chart.
+    element: 'todo_median_waiting_times',
+    data: $('#todo_median_waiting_times').data('todo-median-waiting-times'),
+
+    // The name of the data record attribute that contains x-values.
+    xkey: 'bezeichnung',
+
+    // A list of names of data record attributes that contain y-values.
+    ykeys: ['median_wartezeit'],
+    xLabelAngle: 45,
+
+    // Labels for the ykeys -- will be displayed when you hover over the
+    // chart.
+    labels: ['Minuten']
+  });
+</script>
+
 <h2>Durchschnittliche Befundlaufzeit je Arzt</h2>
 
 <%= content_tag :div, '', id: 'visit_average_duration', data: {visit_average_duration: @visit_average_duration} %>

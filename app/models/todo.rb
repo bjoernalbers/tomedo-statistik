@@ -5,6 +5,8 @@ class Todo < ApplicationRecord
   has_one :visit_todochain, foreign_key: 'todokette_ident'
   has_one :visit, through: :visit_todochain
 
+  include Medianable
+
   def self.average_waiting_times(start, stop)
     # SELECT
     #   ROUND(EXTRACT(EPOCH FROM AVG(todo.anfang - besuch.ankunft))/60) as durchschnittliche_wartezeit,
@@ -38,5 +40,24 @@ class Todo < ApplicationRecord
 
   def self.started
     where.not(anfang: nil)
+  end
+
+  def self.median_waiting_times(start, stop)
+    result = []
+    subquery = joins(:todo_template).
+      joins(:visit).
+      select('ROUND(EXTRACT(EPOCH FROM (todo.anfang - besuch.ankunft))/60) as wartezeit, todovorlage.name as bezeichnung').
+      started.
+      where('besuch.ankunft' => start.to_date.beginning_of_day..stop.to_date.end_of_day).
+      merge(TodoTemplate.studies).
+      as('todo')
+    from(subquery).distinct.pluck(:bezeichnung).each do |bezeichnung|
+      records = from(subquery).where(bezeichnung: bezeichnung)
+      result << {
+        bezeichnung: bezeichnung,
+        median_wartezeit: records.median(:wartezeit)
+      }
+    end
+    result.sort_by { |r| r[:median_wartezeit] }.reverse
   end
 end
