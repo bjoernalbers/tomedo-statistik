@@ -60,6 +60,29 @@
   });
 </script>
 
+<h2>Median der Terminwartezeit je Untersuchung</h2>
+
+<%= content_tag :div, '', id: 'appointment_median_waiting_periods', data: {appointment_median_waiting_periods: @appointment_median_waiting_periods} %>
+
+<script>
+  new Morris.Bar({
+    // ID of the element in which to draw the chart.
+    element: 'appointment_median_waiting_periods',
+    data: $('#appointment_median_waiting_periods').data('appointment-median-waiting-periods'),
+
+    // The name of the data record attribute that contains x-values.
+    xkey: 'bezeichnung',
+
+    // A list of names of data record attributes that contain y-values.
+    ykeys: ['median_wartezeit'],
+    xLabelAngle: 45,
+
+    // Labels for the ykeys -- will be displayed when you hover over the
+    // chart.
+    labels: ['Tage']
+  });
+</script>
+
 <h2>Aufteilung wahrgenommener Termine</h2>
 
 <%= content_tag :div, '', id: 'appointment_appeared_patients_percent', data: {appointment_appeared_patients_percent: @appointment_appeared_patients_percent} %>

@@ -3,6 +3,8 @@ class Appointment < ApplicationRecord
 
   belongs_to :calendar, foreign_key: 'terminart_ident'
 
+  include Medianable
+
   def self.count_by_study(start, stop)
     # RAW SQL:
     # SELECT
@@ -47,6 +49,22 @@ class Appointment < ApplicationRecord
       group('terminart.bezeichnung').
       select('ROUND(EXTRACT(EPOCH FROM AVG(termin.beginn - termin.angelegt))/(60*60*24)) as durchschnittliche_wartezeit, terminart.bezeichnung as bezeichnung').
       order('durchschnittliche_wartezeit desc')
+  end
+
+  def self.median_waiting_periods(start, stop)
+    result = []
+    subquery = joins(:calendar).
+      select('terminart.bezeichnung as bezeichnung, ROUND(EXTRACT(EPOCH FROM(termin.beginn - termin.angelegt))/(60*60*24)) as wartezeit').
+      where(angelegt: start.to_date.beginning_of_day..stop.to_date.end_of_day).
+      as('termin')
+    from(subquery).distinct.pluck(:bezeichnung).each do |bezeichnung|
+      records = from(subquery).where(bezeichnung: bezeichnung)
+      result << {
+        bezeichnung: bezeichnung,
+        median_wartezeit: records.median(:wartezeit)
+      }
+    end
+    result.sort_by{ |r| r[:median_wartezeit] }.reverse
   end
 
   def self.appeared_patients_percent(start, stop)
