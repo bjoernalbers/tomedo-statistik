@@ -16,6 +16,13 @@
 
 <h2>Anzahl der Termine je Untersuchung</h2>
 
+<%= modal 'Anzahl der Termine je Untersuchung' do %>
+  Hier werden alle Termine im gewünschten Zeitraum gezählt und nach der sog.
+  Terminart gruppiert.
+  Die Terminarten lassen sich in tomedo über das Menu "Admin > Kalender >
+  Terminarten" verwalten.
+<% end %>
+
 <%= content_tag :div, '', id: 'appointment_count_by_study', data: {appointment_count_by_study: @appointment_count_by_study} %>
 
 <script>
@@ -38,6 +45,17 @@
 </script>
 
 <h2>Durchschnittliche Terminwartezeit je Untersuchung</h2>
+
+<%= modal 'Durchschnittliche Terminwartezeit je Untersuchung' do %>
+Mit der Terminwartezeit ist die Zeitspanne zwischen dem Anlegen eines Termins
+und dessen Beginn gemeint, d.h. also wieviel Tage ein Patient tatsächlich auf
+seinen Termin warten muss.
+Im Graph werden für den gewünschten Zeitraum die Terminwartezeiten je
+Terminart gruppiert und daraus dann jeweils das arithmetische Mittel
+berechnet.
+Die Terminarten lassen sich in tomedo über das Menu "Admin > Kalender >
+Terminarten" verwalten.
+<% end %>
 
 <%= content_tag :div, '', id: 'appointment_average_waiting_periods', data: {appointment_average_waiting_periods: @appointment_average_waiting_periods} %>
 
@@ -62,6 +80,17 @@
 
 <h2>Median der Terminwartezeit je Untersuchung</h2>
 
+<%= modal 'Median der Terminwartezeit je Untersuchung' do %>
+  Mit der Terminwartezeit ist die Zeitspanne zwischen dem Anlegen eines Termins
+  und dessen Beginn gemeint, d.h. also wieviel Tage ein Patient tatsächlich auf
+  seinen Termin warten muss.
+  Im Graph werden für den gewünschten Zeitraum die Terminwartezeiten je
+  Terminart gruppiert und daraus dann jeweils der Median
+  berechnet.
+  Die Terminarten lassen sich in tomedo über das Menu "Admin > Kalender >
+  Terminarten" verwalten.
+<% end %>
+
 <%= content_tag :div, '', id: 'appointment_median_waiting_periods', data: {appointment_median_waiting_periods: @appointment_median_waiting_periods} %>
 
 <script>
@@ -85,6 +114,13 @@
 
 <h2>Aufteilung wahrgenommener Termine</h2>
 
+<%= modal 'Aufteilung wahrgenommener Termine' do %>
+  Hier sieht man für den gewünschten Zeitraum, wie hoch der Anteil
+  wahrgenommener zu nicht wahrgenommener Termine ist.
+  Zu jedem Termin lässt sich in tomedo dokumentieren, ob dieser wahrgenommen
+  wurde oder nicht.
+<% end %>
+
 <%= content_tag :div, '', id: 'appointment_appeared_patients_percent', data: {appointment_appeared_patients_percent: @appointment_appeared_patients_percent} %>
 
 <script>
@@ -98,6 +134,18 @@
 </script>
 
 <h2>Durchschnittliche Besuchswartezeit je Untersuchung</h2>
+
+<%= modal 'Durchschnittliche Besuchswartezeit je Untersuchung' do %>
+  Die Besuchswartezeit kennzeichnet die Zeitspanne zwischen Beginn des Besuchs
+  und tatsächlichem Beginn der Untersuchung, also die verbrachte Zeit im
+  Wartezimmer des Patienten.
+  Der Besuch beginnt, sobald sich der Patient in der Praxis anmeldet und 
+  in tomedo auf "erschienen" gesetzt wird.
+  Und die Untersuchung beginn, sobald das entsprechende Todo in tomedo begonnen
+  wird.
+  Die Wartezeiten werden für den gewünschten Zeitraum ermittelt, dann nach der
+  sog. Todo-Vorlage gruppiert und daraus das arithmetische Mittel berechnet.
+<% end %>
 
 <%= content_tag :div, '', id: 'todo_average_waiting_times', data: {todo_average_waiting_times: @todo_average_waiting_times} %>
 
@@ -122,6 +170,18 @@
 
 <h2>Median der Besuchswartezeit je Untersuchung</h2>
 
+<%= modal 'Median der Besuchswartezeit je Untersuchung' do %>
+  Die Besuchswartezeit kennzeichnet die Zeitspanne zwischen Beginn des Besuchs
+  und tatsächlichem Beginn der Untersuchung, also die verbrachte Zeit im
+  Wartezimmer des Patienten.
+  Der Besuch beginnt, sobald sich der Patient in der Praxis anmeldet und 
+  in tomedo auf "erschienen" gesetzt wird.
+  Und die Untersuchung beginn, sobald das entsprechende Todo in tomedo begonnen
+  wird.
+  Die Wartezeiten werden für den gewünschten Zeitraum ermittelt, dann nach der
+  sog. Todo-Vorlage gruppiert und daraus der Median berechnet.
+<% end %>
+
 <%= content_tag :div, '', id: 'todo_median_waiting_times', data: {todo_median_waiting_times: @todo_median_waiting_times} %>
 
 <script>
@@ -144,6 +204,19 @@
 </script>
 
 <h2>Durchschnittliche Befundlaufzeit je Arzt</h2>
+
+<%= modal 'Durchschnittliche Befundlaufzeit je Arzt' do %>
+  Mit der Befundlaufzeit ist die Zeit zwischen Ankunft eines Patienten in der
+  Praxis und der entsprechenden Befunderstellung gemeint, die der Besuchsdauer
+  in tomedo gleichgesetzt wird.
+  Der Besuch startet, wenn die Patientenkarte eingelesen wird bzw. wenn man auf
+  "Besuch anlegen" in den Patientendetails oder der Kartei in tomedo klickt.
+  Der Besuch endet automatisch, wenn das letzte Todo beendet wird oder manuell,
+  wenn der Patient auf "gegangen" gesetzt wird.
+  Im Graph werden die Besuchsdauern bzw. Befundlaufzeiten für den gewünschten
+  Zeitraum ermittelt, dann nach befundendem Arzt gruppiert und daraus jeweils
+  das arithmetische Mittel berechnet.
+<% end %>
 
 <%= content_tag :div, '', id: 'visit_average_duration', data: {visit_average_duration: @visit_average_duration} %>
 
@@ -168,6 +241,19 @@
 
 <h2>Median der Befundlaufzeit je Arzt</h2>
 
+<%= modal 'Durchschnittliche Befundlaufzeit je Arzt' do %>
+  Mit der Befundlaufzeit ist die Zeit zwischen Ankunft eines Patienten in der
+  Praxis und der entsprechenden Befunderstellung gemeint, die der Besuchsdauer
+  in tomedo gleichgesetzt wird.
+  Der Besuch startet, wenn die Patientenkarte eingelesen wird bzw. wenn man auf
+  "Besuch anlegen" in den Patientendetails oder der Kartei in tomedo klickt.
+  Der Besuch endet automatisch, wenn das letzte Todo beendet wird oder manuell,
+  wenn der Patient auf "gegangen" gesetzt wird.
+  Im Graph werden die Besuchsdauern bzw. Befundlaufzeiten für den gewünschten
+  Zeitraum ermittelt, dann nach befundendem Arzt gruppiert und daraus jeweils
+  der Median berechnet.
+<% end %>
+
 <%= content_tag :div, '', id: 'visit_median_duration', data: {visit_median_duration: @visit_median_duration} %>
 
 <script>
@@ -190,6 +276,14 @@
 </script>
 
 <h2>Aufteilung je Versicherungsart</h2>
+
+<%= modal 'Aufteilung je Versicherungsart' do %>
+  Die Aufteilung je Versicherungsart stellt dar, wie der Anteil gesetztlich zu
+  privat versicherter Patienten für den gewünschten Zeitraum ist.
+  Für die Erhebung wird ermittelt, bei welchen Patienten im Berichtszeitraum
+  ein Besuch endete, und dann die Versicherungsart ausgelesen.
+  In tomedo wird die Versicherungsart über die Patientendetails eingestellt.
+<% end %>
 
 <%= content_tag :div, '', id: 'patientdetails_insurance_type_percent', data: {patientdetails_insurance_type_percent: @patientdetails_insurance_type_percent} %>
 
