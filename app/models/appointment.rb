@@ -22,6 +22,7 @@ class Appointment < ApplicationRecord
     # ;
     joins(:calendar).
       where('termin.beginn' => start.to_date.beginning_of_day..stop.to_date.end_of_day).
+      where('termin.removed is false and termin.info is not null').
       group('terminart.bezeichnung').
       select('count(*) as anzahl_termine, terminart.bezeichnung as bezeichnung').
       order('anzahl_termine desc')
@@ -46,6 +47,7 @@ class Appointment < ApplicationRecord
     # ;
     joins(:calendar).
       where('termin.angelegt' => start.to_date.beginning_of_day..stop.to_date.end_of_day).
+      where('termin.removed is false and termin.info is not null').
       group('terminart.bezeichnung').
       select('ROUND(EXTRACT(EPOCH FROM AVG(termin.beginn - termin.angelegt))/(60*60*24)) as durchschnittliche_wartezeit, terminart.bezeichnung as bezeichnung').
       order('durchschnittliche_wartezeit desc')
@@ -55,6 +57,7 @@ class Appointment < ApplicationRecord
     result = []
     subquery = joins(:calendar).
       select('terminart.bezeichnung as bezeichnung, ROUND(EXTRACT(EPOCH FROM(termin.beginn - termin.angelegt))/(60*60*24)) as wartezeit').
+      where('termin.removed is false and termin.info is not null').
       where(angelegt: start.to_date.beginning_of_day..stop.to_date.end_of_day).
       as('termin')
     from(subquery).distinct.pluck(:bezeichnung).each do |bezeichnung|
@@ -80,9 +83,11 @@ class Appointment < ApplicationRecord
     #   "termin"."warda"
     # ;
     total = where(beginn: start.to_date.beginning_of_day..stop.to_date.end_of_day).
+      where('termin.removed is false and termin.info is not null').
       count
     select('warda, count(*) as anzahl').
       where(beginn: start.to_date.beginning_of_day..stop.to_date.end_of_day).
+      where('termin.removed is false and termin.info is not null').
       group(:warda).inject([]) do |memo,appeared_or_not|
         hash = {}
         hash[:label] = appeared_or_not.warda ? "erschienen" : "nicht erschienen"
